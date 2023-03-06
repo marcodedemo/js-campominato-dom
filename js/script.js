@@ -30,10 +30,14 @@ let generatedGridCounter = 0;
 const bombsNumber = 16;
 
 // creo un array in cui inserire i numeri delle celle contenenti le bombe
+let bombCellsNumbers = [];
+
+// creo un array contenente le celle bomba
 let bombCells = [];
 
 // imposto un contatore delle celle cliccate per stabilire il punteggio finale
 let clickedCellNumber = 0;
+
 
 
 
@@ -71,21 +75,21 @@ buttonGeneratorElement.addEventListener("click", function(){
 
 
         // creo un ciclo di creazione dei valori delle celle contenenti le bombe
-        while (bombCells.length < bombsNumber) {
+        while (bombCellsNumbers.length < bombsNumber) {
             
             // imposto la variabile generated number per poterla poi inserire come valore all'interno dell'array
             let generatedNumber = generateRandomNumber(1,rowsAndColumns);
 
             // eseguo un controllo in caso il numero generato sia già presente nell'array 
-            if (!bombCells.includes(generatedNumber)){
+            if (!bombCellsNumbers.includes(generatedNumber)){
 
                 // inserisco il valore generato che ha superato il controllo nell'array
-                bombCells.push(generatedNumber);
+                bombCellsNumbers.push(generatedNumber);
             }
             
         }
 
-        console.log(bombCells);
+        console.log(bombCellsNumbers);
 
 
 
@@ -96,9 +100,16 @@ buttonGeneratorElement.addEventListener("click", function(){
             // dichiaro la variabile corrispondente al nuovo elmento creato
             let newCell = document.createElement("div");
             
+            // se l'array dei numeri delle bombe contiene i allora la cella creata con indice i sarà una cella bomba
+            if (bombCellsNumbers.includes(i)) {
+
+                // controllata ogni cella e verificata che sia bomba o meno, se risulta cella bomba la inserisco nell'array delle celle bomba
+                bombCells.push(newCell);
+            }
+
             // ad ogni elemento creato attribuisco una classe comune 
             newCell.classList.add("grid-square");
-
+            
             // dentro ad ogni elemento creato scrivo il valore di i 
             newCell.innerText = i;
 
@@ -128,12 +139,16 @@ buttonGeneratorElement.addEventListener("click", function(){
             newCell.addEventListener("click", function(){
 
 
-                // se clicco una cella che ha il numero di corrispondenza che è contenuto nell'array delle celle bomba
-                if(bombCells.includes(parseInt(newCell.innerText))){
 
-                    
-                    // attribuisco alla cella la classe di stile bomb
-                    newCell.classList.add("bomb");
+                // se clicco una cella che ha il numero di corrispondenza che è contenuto nell'array delle celle bomba
+                if(bombCellsNumbers.includes(parseInt(newCell.textContent))){
+
+                    // cliccata una bomba evidenzio tutte le celle bomba
+                    for (let i = 0; i < bombCells.length; i++) {
+                        
+                        // aggiungo la classe "bomba" alle celle bomba
+                        bombCells[i].classList.add("bomb");
+                    }
 
                     // rimuovo la possibilità di cliccare la griglia dopo aver cliccato una bomba
                     gridContainerElement.style.pointerEvents = "none";
