@@ -87,8 +87,7 @@ buttonGeneratorElement.addEventListener("click", function(){
                 bombCellsNumbers.push(generatedNumber);
             }
             
-        }
-
+        };
 
 
         // creo un ciclo di creazione della griglia
@@ -207,7 +206,7 @@ buttonGeneratorElement.addEventListener("click", function(){
                 generatedGridCounter = 0;
 
                 // rimuovo i numeri corrispondenti alle bombe dall'array per poterne generare di nuovi
-                bombCells = [];
+                bombCellsNumbers = [];
 
                 // rimuovo la scritta di vittoria/sconfitta
                 pointsTextElement.innerText = "";
