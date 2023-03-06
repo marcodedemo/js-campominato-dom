@@ -89,8 +89,6 @@ buttonGeneratorElement.addEventListener("click", function(){
             
         }
 
-        console.log(bombCellsNumbers);
-
 
 
         // creo un ciclo di creazione della griglia
@@ -149,6 +147,9 @@ buttonGeneratorElement.addEventListener("click", function(){
                         // aggiungo la classe "bomba" alle celle bomba
                         bombCells[i].classList.add("bomb");
                     }
+
+                    // scrivo in console che hai cliccato una bomba e hai perso
+                    console.log("Hai cliccato la cella " + newCell.innerText + " che era una bomba!!");
 
                     // rimuovo la possibilità di cliccare la griglia dopo aver cliccato una bomba
                     gridContainerElement.style.pointerEvents = "none";
