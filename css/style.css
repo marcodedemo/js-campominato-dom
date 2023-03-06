@@ -1,0 +1,99 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(135, 135, 135);
+}
+
+/* grid generator title & input */
+#grid-generator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#grid-generator h1{
+    padding: 40px 0;
+}
+
+#grid-generator #input-generator{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    padding-bottom: 30px;
+}
+
+#grid-generator #input-generator button{
+    background-color: rgb(19, 39, 187);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+#grid-generator #input-generator select{
+    background-color: rgb(19, 39, 187);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+
+/* grid container style */
+#grid-container{
+    display: flex;
+    flex-flow: row wrap;
+
+    width: 630px;
+    margin: 0 auto;
+
+}
+
+/* grid single element */
+.grid-square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 50px;
+    height: 50px;
+
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+}
+
+/* grid active (clicked) element */
+.active{
+    background-color: aqua;
+}
+
+/* reset grid  */
+#reset-grid{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+
+}
+
+#reset-grid button{
+    display: none;
+
+    background-color: rgb(187, 19, 19);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+
+    margin-top: 20px;
+}
+
+#reset-grid button.show{
+    display: block;
+}
