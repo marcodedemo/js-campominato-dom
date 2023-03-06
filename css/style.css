@@ -74,6 +74,10 @@ body{
     background-color: aqua;
 }
 
+.bomb{
+    background-color: red;
+}
+
 /* reset grid  */
 #reset-grid{
     display: flex;
@@ -85,7 +89,7 @@ body{
 #reset-grid button{
     display: none;
 
-    background-color: rgb(187, 19, 19);
+    background-color: #bb1313;
     color: white;
     border: none;
     border-radius: 8px;
@@ -96,4 +100,12 @@ body{
 
 #reset-grid button.show{
     display: block;
+}
+
+#points{
+    text-align: center;
+
+    padding-top: 20px;
+
+    font-size: 2em;
 }

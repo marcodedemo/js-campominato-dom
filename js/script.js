@@ -17,11 +17,26 @@ let difficultySelectorElement = document.getElementById("grid-difficulty");
 // reset button
 let resetGridButton = document.getElementById("grid-reset-btn");
 
+// elemento testuale per punti e vittoria/sconfitta
+let pointsTextElement = document.getElementById("points");
+
 // grid rows and columns
 let rowsAndColumns;
 
 // imposto una variabile per la generazione massima di tabelle
 let generatedGridCounter = 0;
+
+// imposto una costante con valore uguale al numero di bombe da generare ad ogni partita
+const bombsNumber = 16;
+
+// creo un array in cui inserire i numeri delle celle contenenti le bombe
+let bombCells = [];
+
+// imposto un contatore delle celle cliccate per stabilire il punteggio finale
+let clickedCellNumber = 0;
+
+
+
 
 
 // al click del pulsante generatore creo la griglia
@@ -52,6 +67,26 @@ buttonGeneratorElement.addEventListener("click", function(){
             // imposto la griglia 7*7 nella difficoltà-3
             rowsAndColumns = 7 * 7;
         }
+
+
+
+        // creo un ciclo di creazione dei valori delle celle contenenti le bombe
+        while (bombCells.length < bombsNumber) {
+            
+            // imposto la variabile generated number per poterla poi inserire come valore all'interno dell'array
+            let generatedNumber = generateRandomNumber(1,rowsAndColumns);
+
+            // eseguo un controllo in caso il numero generato sia già presente nell'array 
+            if (!bombCells.includes(generatedNumber)){
+
+                // inserisco il valore generato che ha superato il controllo nell'array
+                bombCells.push(generatedNumber);
+            }
+            
+        }
+
+        console.log(bombCells);
+
 
 
         // creo un ciclo di creazione della griglia
@@ -92,13 +127,50 @@ buttonGeneratorElement.addEventListener("click", function(){
             // aggiungo l'evento click alle celle
             newCell.addEventListener("click", function(){
 
-                // al click della cella aggiungo la classe active
-                newCell.classList.toggle("active");
+
+                // se clicco una cella che ha il numero di corrispondenza che è contenuto nell'array delle celle bomba
+                if(bombCells.includes(parseInt(newCell.innerText))){
+
+                    
+                    // attribuisco alla cella la classe di stile bomb
+                    newCell.classList.add("bomb");
+
+                    // rimuovo la possibilità di cliccare la griglia dopo aver cliccato una bomba
+                    gridContainerElement.style.pointerEvents = "none";
+
+                    // scrivo nel DOM il punteggio 
+                    pointsTextElement.innerText = "HAI PERSO! hai totalizzato " + clickedCellNumber + " punto/i"
+                    
+                    pointsTextElement.style.color = "#bb1313";
+                    
+
+                }else{
+                    
+                    // al click della cella aggiungo la classe active
+                    newCell.classList.add("active");
+                    
+                    // scrivo in console il numero della cella cliccata
+                    console.log("Hai cliccato la cella " + newCell.innerText);
+
+                    // aumento il contatore delle celle non bombe cliccate
+                    clickedCellNumber++;
+                    
+                }
+
+                // se tutte le celle senza bomba sono state cliccate allora scrivo nel dom che l'utente ha vinto
+                if(clickedCellNumber == rowsAndColumns - bombsNumber){
+
+                    // rimuovo la possibilità di cliccare la griglia dopo aver cliccato tutte le celle senza bomba
+                    gridContainerElement.style.pointerEvents = "none";
+
+                    pointsTextElement.innerText = "HAI VINTO! hai evitato tutte le bombe."
+                    
+                    pointsTextElement.style.color = "green";
+                }
+
                 
-                // scrivo in console il numero della cella cliccata
-                console.log("Hai cliccato la cella " + newCell.innerText);
                 
-            })
+            },{once : true});
 
 
             // attribuisco la genitorialità al container dell'elemento creato
@@ -118,6 +190,17 @@ buttonGeneratorElement.addEventListener("click", function(){
                 // reimposto la variabile sentinella 
                 generatedGridCounter = 0;
 
+                // rimuovo i numeri corrispondenti alle bombe dall'array per poterne generare di nuovi
+                bombCells = [];
+
+                // rimuovo la scritta di vittoria/sconfitta
+                pointsTextElement.innerText = "";
+
+                // rendo la griglia cliccabile di nuovo per una nuova partita
+                gridContainerElement.style.pointerEvents = "auto";
+
+
+
             })
         }
 
@@ -128,5 +211,22 @@ buttonGeneratorElement.addEventListener("click", function(){
 
 });
 
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  functions                                 */
+/* -------------------------------------------------------------------------- */
+
+
+
+// funzione che genera un numero casuale tra un valore minimo e un valore massimo dato 
+function generateRandomNumber (min, max){
+
+    let randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+
+    return randomNumber;
+}
 
 
