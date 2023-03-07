@@ -43,6 +43,7 @@ let clickedCellNumber = 0;
 
 
 
+
 // al click del pulsante generatore creo la griglia
 buttonGeneratorElement.addEventListener("click", function(){
 
@@ -207,6 +208,9 @@ buttonGeneratorElement.addEventListener("click", function(){
 
                 // rimuovo i numeri corrispondenti alle bombe dall'array per poterne generare di nuovi
                 bombCellsNumbers = [];
+
+                // reimposto il punteggio dopo il reset a 0
+                clickedCellNumber = 0;
 
                 // rimuovo la scritta di vittoria/sconfitta
                 pointsTextElement.innerText = "";
